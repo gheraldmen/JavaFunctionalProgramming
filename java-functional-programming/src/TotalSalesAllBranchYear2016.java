@@ -20,7 +20,6 @@ public class TotalSalesAllBranchYear2016 {
                 .filter(i->i.get(1).contains("2016"))
                 .map(i -> BigDecimal.valueOf(Double.parseDouble(i.get(2))).multiply(BigDecimal.valueOf(Double.parseDouble(i.get(3)))))
                 .reduce(BigDecimal.valueOf(0), BigDecimal::add);
-
         System.out.println("The total sales of all branch for the year 2016: \n" + sales);
 
 

@@ -20,7 +20,6 @@ public class TotalSalesAllBranch {
         BigDecimal sales = values.stream()
                 .map(i -> BigDecimal.valueOf(Double.parseDouble(i.get(2))).multiply(BigDecimal.valueOf(Double.parseDouble(i.get(3)))))
                 .reduce(BigDecimal.valueOf(0), BigDecimal::add);
-
         System.out.println("The total sales of all branch: " + sales);
 
     }
