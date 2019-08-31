@@ -1,5 +1,6 @@
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,9 +17,9 @@ public class TotalSalesAllBranch {
 
         Stream<String> stream = Stream.concat(Stream.concat(Files.lines(manilaPath), Files.lines(cebuPath)), Files.lines(davaoPath));
         List<List<String>> values = stream.map(line -> Arrays.asList(line.split(","))).collect(Collectors.toList());
-        Double sales = values.stream()
-                .map(i -> Double.parseDouble(i.get(2)) * Double.parseDouble(i.get(3)))
-                .reduce(0.0, Double::sum);
+        BigDecimal sales = values.stream()
+                .map(i -> BigDecimal.valueOf(Double.parseDouble(i.get(2))).multiply(BigDecimal.valueOf(Double.parseDouble(i.get(3)))))
+                .reduce(BigDecimal.valueOf(0), BigDecimal::add);
 
         System.out.println("The total sales of all branch: " + sales);
 

@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,10 +16,10 @@ public class TotalSalesAllBranchYear2016 {
 
         Stream<String> stream = Stream.concat(Stream.concat(Files.lines(manilaPath), Files.lines(cebuPath)), Files.lines(davaoPath));
         List<List<String>> values = stream.map(line -> Arrays.asList(line.split(","))).collect(Collectors.toList());
-        Double sales = values.stream()
+        BigDecimal sales = values.stream()
                 .filter(i->i.get(1).contains("2016"))
-                .map(i -> Double.parseDouble(i.get(2)) * Double.parseDouble(i.get(3)))
-                .reduce(0.0, Double::sum);
+                .map(i -> BigDecimal.valueOf(Double.parseDouble(i.get(2))).multiply(BigDecimal.valueOf(Double.parseDouble(i.get(3)))))
+                .reduce(BigDecimal.valueOf(0), BigDecimal::add);
 
         System.out.println("The total sales of all branch for the year 2016: \n" + sales);
 
